@@ -1,12 +1,14 @@
-package JavaObjects;
+package com.firstSpringApplication.springApplication.JavaObjects;
 
-import Enums.League;
-import Enums.Level;
+import com.firstSpringApplication.springApplication.Enums.League;
+import com.firstSpringApplication.springApplication.Enums.Level;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
+@Builder
 public class Hockey {
 
     private int competitorNumber;

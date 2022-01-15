@@ -1,4 +1,4 @@
-package Enums;
+package com.firstSpringApplication.springApplication.Enums;
 
 public enum League {
     EAST_ONE,
