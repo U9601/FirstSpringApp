@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -28,5 +31,25 @@ public class HockeyService {
         }
         log.info("Found Competitor {}", hockeyDto);
         return hockeyMapper.mapHockeyDtoToHockey(hockeyDto);
+    }
+
+    public List<Hockey> getHockeyCompetitorBulk(){
+        List<HockeyDto> hockeyDtos = new ArrayList<>();
+        hockeyRepository.findAll().forEach(hockeyDtos::add);
+        if(hockeyDtos.isEmpty()){
+            log.error("No Competitors were found");
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "No Competitors were found"
+            );
+        }
+        log.info("Found Competitors");
+        return hockeyDtos.stream()
+                .map(hockeyDto -> hockeyMapper.mapHockeyDtoToHockey(hockeyDto))
+                .toList();
+    }
+
+    public void addHockeyCompetitor(Hockey hockey){
+        HockeyDto hockeyDto = hockeyMapper.mapHockeyToHockeyDto(hockey);
+        hockeyRepository.save(hockeyDto);
     }
 }
